@@ -5,12 +5,15 @@ from bson.objectid import ObjectId
 from json import dumps
 class Order(object):
 
+	conection_name = "namskeid"
+	db_name = "orders"
+
 	def __init__(self):
 		self.connection = Connection()
-		self.db = self.connection.namskeid
+		self.db = self.connection[self.conection_name]
 
 	def save(self, data):
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		results = ""
 		try:
 			insert_id = collection.insert(data)
@@ -21,14 +24,14 @@ class Order(object):
 
 
 	def update(self, update_id, data):
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		return collection.update({"_id": ObjectId(str(update_id))},{"$set": data}, upsert = True)
 
 	def delete(self, data):
 		"""
 			data = {"column": "find data", ...}
 		"""
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		results = []
 
 		for k in data.keys():
@@ -38,7 +41,7 @@ class Order(object):
 		collection.remove(data)
 
 	def get(self, order_id):
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		results = []
 		for i in collection.find({"_id": ObjectId(str(order_id))}):
 			i["_id"] = str(i["_id"])
@@ -49,7 +52,7 @@ class Order(object):
 		"""
 			data = {"column": "find data", ...}
 		"""
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		results = []
 
 		for k in data.keys():
@@ -62,7 +65,7 @@ class Order(object):
 		return results
 
 	def get_all(self):
-		collection = self.db.orders
+		collection = self.db[self.db_name]
 		results = []
 		for i in collection.find():
 			i["_id"] = str(i["_id"])

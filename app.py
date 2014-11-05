@@ -12,7 +12,7 @@ class Controller(object):
 	@cherrypy.expose
 	@cherrypy.tools.json_in()
 	@cherrypy.tools.json_out()
-	@cherrypy.tools.validate(data_fields=input_validation.submit)
+	@cherrypy.tools.validate(data_structure=input_validation.submit)
 	@cherrypy.tools.allow(methods=['POST'])
 	def submit(self):
 		return cherrypy.engine.publish('db-save', cherrypy.request.json)
@@ -20,7 +20,7 @@ class Controller(object):
 	@cherrypy.expose
 	@cherrypy.tools.json_in()
 	@cherrypy.tools.json_out()
-	@cherrypy.tools.validate(data_fields=input_validation.update)
+	@cherrypy.tools.validate(data_structure=input_validation.update)
 	@cherrypy.tools.allow(methods=['PUT'])
 	def update(self):
 		update_id = cherrypy.request.json["update_id"]
@@ -30,7 +30,7 @@ class Controller(object):
 	@cherrypy.expose
 	@cherrypy.tools.json_in()
 	@cherrypy.tools.json_out()
-	@cherrypy.tools.validate(data_fields=input_validation.delete)
+	@cherrypy.tools.validate(data_structure=input_validation.delete)
 	@cherrypy.tools.allow(methods=['POST'])
 	def delete(self):
 		return cherrypy.engine.publish('db-delete', cherrypy.request.json)
@@ -44,7 +44,7 @@ class Controller(object):
 	@cherrypy.expose
 	@cherrypy.tools.json_in()
 	@cherrypy.tools.json_out()
-	@cherrypy.tools.validate(data_fields=input_validation.get_where)
+	@cherrypy.tools.validate(data_structure=input_validation.get_where)
 	@cherrypy.tools.allow(methods=['POST'])
 	def get_where(self):
 		return cherrypy.engine.publish('db-getwhere', cherrypy.request.json)

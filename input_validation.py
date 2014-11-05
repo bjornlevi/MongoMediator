@@ -26,7 +26,7 @@ def validate_any(data_structure):
 	if len(extras) > 0:
 		raise cherrypy.HTTPError("400 Bad Request", "Allowed fields are: " + str(data_structure))
 
-submit = [""]
-update = [""]
-delete = [""]
-get_where = [""]
+submit = ["_id"]
+update = ["_id"]
+delete = ["_id"]
+get_where = ["_id"]
