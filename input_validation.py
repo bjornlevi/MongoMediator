@@ -34,4 +34,4 @@ def validate_or(data_structure):
 submit = ["email", "text"]
 update = ["_id"]
 delete = ["_id"]
-get_where = ["_id"]
+get_where = ["_id", "email"]
