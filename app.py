@@ -58,6 +58,7 @@ class Controller(object):
 	@cherrypy.tools.json_out()
 	@cherrypy.tools.before_get()
 	@cherrypy.tools.after_get()
+	@cherrypy.tools.gzip(mime_types=["application/json"])
 	@cherrypy.tools.allow(methods=['GET'])
 	def get(self, _id):
 		return cherrypy.engine.publish('db-get', _id)
@@ -68,6 +69,7 @@ class Controller(object):
 	@cherrypy.tools.validate_or(data_structure=input_validation.get_where)
 	@cherrypy.tools.before_get_where()
 	@cherrypy.tools.after_get_where()
+	@cherrypy.tools.gzip(mime_types=["application/json"])
 	@cherrypy.tools.allow(methods=['POST'])
 	def get_where(self):
 		return cherrypy.engine.publish('db-getwhere', cherrypy.request.json)
@@ -76,7 +78,7 @@ class Controller(object):
 	@cherrypy.tools.json_out()
 	@cherrypy.tools.before_get_all()
 	@cherrypy.tools.after_get_all()
-	@cherrypy.tools.gzip()
+	@cherrypy.tools.gzip(mime_types=["application/json"])
 	@cherrypy.tools.allow(methods=['GET'])
 	def get_all(self):
 		print cherrypy.request.headers
